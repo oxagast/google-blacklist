@@ -1,3 +1,14 @@
+/*
+ * Google blacklist mapping
+ * Marshall Whittaker / oxagast
+ */
+
+//    __ _  _  __   ___  __  ____ ____ 
+//   /  ( \/ )/ _\ / __)/ _\/ ___(_  _)
+//  (  O )  (/    ( (_ /    \___ \ )(  
+//   \__(_/\_\_/\_/\___\_/\_(____/(__)
+
+
 #include <cstdlib>
 #include <cstring>
 #include <string>
@@ -17,11 +28,12 @@ static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *use
     return size * nmemb;
 }
 
-int main(int argc, char *argv[])
+std::vector<std::string> googet(std::string sub_query)
 {
-  std::string sub_query = argv[1];
+  // std::string sub_query = argv[1];
   // maybe needed this &tok=qrPq0XiGY77JP-GaK0ngBQ ?
   std::string url = "https://www.google.com/complete/search?client=hp&hl=en&gs_rn=64&gs_ri=hp&gs_mss=" + sub_query + "&cp=6&gs_id=y&q=" + sub_query + "&xhr=t";
+  std::vector<std::string> google_suggestions;
   boost::replace_all(url, " ", "\%20");
   CURL *curl;
   std::string read_buffer;
@@ -33,20 +45,20 @@ int main(int argc, char *argv[])
     #ifdef SKIP_PEER_VERIFICATION
     curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
     #endif
-    #ifdef SKIP_HOSTNAME_VERIFICATION 
+    #ifdef SKIP_HOSTNAME_VERIFICATION
     curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0L);
     #endif
   //  curl_easy_setopt(curl, CURLOPT_READDATA, &from_goog);
     /* Perform request, res will return code */
    // curl_easy_perform(curl);
-    /* errors */ 
+    /* errors */
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &read_buffer);
     res = curl_easy_perform(curl);
     if(res != CURLE_OK) {
       fprintf(stderr, "curl_easy_perform() failed: %s\n",
               curl_easy_strerror(res));
-    /* cleanup */ 
+    /* cleanup */
     }
 
     else {
@@ -59,8 +71,9 @@ int main(int argc, char *argv[])
         boost::replace_all(read_buffer, "],[\"", "");
         boost::replace_all(read_buffer, "\",0", "\n");
         boost::replace_all(read_buffer, "\\u003c\\/b\\u003e", "");
-        /* 
-         * create a vector for each one to sit in 
+        boost::replace_all(read_buffer, ",[131]", "");
+        /*
+         * create a vector for each one to sit in
          */
         std::vector<std::string> suggestions;
         /*
@@ -70,19 +83,20 @@ int main(int argc, char *argv[])
         /*
          * get rid of that nasty last line
          */
-        suggestions.erase(suggestions.end());        
+        suggestions.erase(suggestions.end());
         /*
          * loop around the vector for each suggestion out of google
          */
         for (int cur_sugg = 0; cur_sugg < suggestions.size(); cur_sugg++) {
           if (suggestions[cur_sugg].find(",[") == std::string::npos) {
-            std::cout << suggestions[cur_sugg] << std::endl;
+            google_suggestions.push_back(suggestions[cur_sugg]);
           }
-      }  
+        
+      }
     }
     curl_easy_cleanup(curl);
   }
   curl_global_cleanup();
-  return 0;
+  return (google_suggestions);
 }
 
