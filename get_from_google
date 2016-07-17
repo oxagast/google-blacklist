@@ -1,0 +1,1 @@
+curl 'https://www.google.com/complete/search?client=hp&hl=en&gs_rn=64&gs_ri=hp&gs_mss=a&tok=qrPq0XiGY77JP-GaK0ngBQ&cp=6&gs_id=y&q=a&xhr=t'-H 'Referer: https://www.google.com/' -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, likeGecko) Chrome/51.0.2704.106 Safari/537.36' --compressed > auto
