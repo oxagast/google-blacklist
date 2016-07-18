@@ -41,6 +41,8 @@ std::vector<std::string> search_for(std::string query, int letters) {
 int main(int argc, char *argv[]) {
   if (argc == 2) {
     std::string query = argv[1];
+    std::cout << "Query is to be: " << query.length() << " : " <<
+    query << std::endl << std::endl;
     std::vector<std::string> sub_query_result;
     /* loop around each letter */
     for (int letters = 1; letters <= query.length(); letters++) {
