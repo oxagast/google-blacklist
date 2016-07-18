@@ -8,7 +8,7 @@
 //  (  O )  (/    ( (_ /    \___ \ )(
 //   \__(_/\_\_/\_/\___\_/\_(____/(__)
 
-// g++ src/main.cpp src/googet.cpp -o googet -lcurl --std=gnu++11
+// g++ src/frontend.cpp src/googet.cpp -o googet -lcurl --std=gnu++11
 
 #include <cstdlib>
 #include <cstring>
@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
     std::vector<std::string> sub_query_result;
     /* loop around each letter */
     for (int letters = 1; letters <= query.length(); letters++) {
-      sub_query_result = (search_for(query, letters));
+      search_for(query, letters);
     }
     return (0);
   }

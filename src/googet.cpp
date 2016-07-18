@@ -64,6 +64,7 @@ std::vector<std::string> googet(std::string sub_query) {
       /*
        * make a bunch of formatting corrections
        */
+//      std::cerr << read_buffer << std::endl << std::endl;
       boost::replace_all(read_buffer, "\\u003cb\\u003e", "");
       boost::replace_all(read_buffer, "\\u003c\\/b\\u003e\",0", "\n");
       boost::replace_all(read_buffer, "[\"" + sub_query + "\",[[\"", "");
@@ -73,6 +74,7 @@ std::vector<std::string> googet(std::string sub_query) {
       boost::replace_all(read_buffer, ",[131]", "");
       boost::replace_all(read_buffer, "\\u0026#39;s", "'");
       boost::replace_all(read_buffer, "\\u0026amp;", "&");
+      boost::replace_all(read_buffer, "\\u0026#39;", "'");
       /*
        * create a vector for each one to sit in
        */
@@ -86,11 +88,13 @@ std::vector<std::string> googet(std::string sub_query) {
        * get rid of that nasty last line
        */
       suggestions.erase(suggestions.end());
+
       /*
        * loop around the vector for each suggestion out of google
        */
       for (int cur_sugg = 0; cur_sugg < suggestions.size(); cur_sugg++) {
         if (suggestions[cur_sugg].find(",[") == std::string::npos) {
+//           std::cerr << suggestions[cur_sugg] << std::endl << std::endl;
           google_suggestions.push_back(suggestions[cur_sugg]);
         }
       }
