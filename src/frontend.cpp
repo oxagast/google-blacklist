@@ -28,7 +28,6 @@ std::vector<std::string> googet(std::string sub_query);
 std::vector<std::string> search_for(std::string query, int letters) {
   int current_suggestion;
   std::vector<std::string> suggestions;
-
   suggestions = googet(query.substr(0, letters));
   for (current_suggestion = 0; current_suggestion < suggestions.size();
        current_suggestion++) {
@@ -40,6 +39,7 @@ std::vector<std::string> search_for(std::string query, int letters) {
 
 int main(int argc, char *argv[]) {
   if (argc == 2) {
+    std::cout << std::endl;
     std::string query = argv[1];
     std::cout << "Query is to be: " << query.length() << " : " <<
     query << std::endl << std::endl;
