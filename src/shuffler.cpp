@@ -8,7 +8,7 @@
 //  (  O )  (/    ( (_ /    \___ \ )(
 //   \__(_/\_\_/\_/\___\_/\_(____/(__)
 
-// g++ src/frontend.cpp src/googet.cpp -o googet -lcurl --std=gnu++11
+// g++ src/shuffler.cpp src/googet.cpp -o shuffler -lcurl --std=gnu++11
 
 #include <cstdlib>
 #include <cstring>
@@ -21,10 +21,27 @@
 #include <algorithm>
 #include <functional>
 #include <ctime>
-#include<stdexcept>
+#include <stdexcept>
 #include <iterator>
 
+std::vector<std::string> googet(std::string sub_query);
+
 int rand_int(int i) { return std::rand()%i;}
+
+std::vector<std::string> search_for(std::string query, int letters) {
+  int current_suggestion;
+  std::vector<std::string> suggestions;
+  suggestions.clear();
+  suggestions = googet(query.substr(0, letters));
+  for (current_suggestion = 0; current_suggestion < suggestions.size();
+       current_suggestion++) {
+      if (suggestions.size() > 0) {
+    std::cout << "Chars: " << letters << " : " << query.substr(0, letters)
+              << " : " << suggestions[current_suggestion] << std::endl;
+      }
+  }
+  return (suggestions);
+}
 
 int rand_range(int rand_from, int rand_to) {
   std::random_device rd;
@@ -37,18 +54,29 @@ int rand_range(int rand_from, int rand_to) {
 }
 
 int main ( int argc, char *argv[]) {
+  if (argc == 2) {
   std::srand ( unsigned ( std::time(0) ) );
   std::vector<std::string> list;
   std::ifstream qfile(argv[1]);
   std::copy(std::istream_iterator<std::string> (qfile),
-    std::istream_iterator<std::string>(),
+  std::istream_iterator<std::string>(),
     back_inserter(list));
- while (true) {
+  while (42) {
   std::random_shuffle (list.begin(), list.end());
-  std::string part_one = list[0];
-  std::string part_two = list[1];
-  std::string part_three = list[2];
-  std::string whole = "./googet \"" + part_one + " " + part_two + " " + part_three + "\"";
-  system(whole.c_str());
+  std::string query = list[0] + " " + list[1] + " " + list[2];
+      std::cout << "Query is to be: " << query.length() << " : " <<
+    query << std::endl << std::endl;
+    std::vector<std::string> sub_query_result;
+    /* loop around each letter */
+    for (int letters = 1; letters <= query.length(); letters++) {
+      search_for(query, letters);
+    }
+
  }
+ std::cerr << "This shouldn't happen." << std::endl;
+     return (1);
+}
+std::cerr << "Provide a file with a list of words or phrases." <<
+std::endl << argv[0] << " wordlist" << std::endl;
+return (1);
 }
