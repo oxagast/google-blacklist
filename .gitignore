@@ -1,31 +1,24 @@
-# Compiled Object files
-*.slo
-*.lo
+*.l[ao]
+*~
 *.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
 *.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
-googet
-shuffler
+!/man/*
+!/bin/
+/bin/*
+compile
+install-sh
+depcomp
+missing
+src/.clang-format
+src/linux/.clang-format
+src/win/.clang-format
+config.guess
+config.sub
+test-driver
+/autom4te.cache/
+*.Po
+Makefile
+Makefile.in
+config.log
+config.status
+aclocal.m4
