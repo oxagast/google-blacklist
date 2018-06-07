@@ -25,8 +25,8 @@ std::vector<std::string> googet(std::string sub_query);
  * one letter at a time. it calls googet to make the https
  * requests to google.
  */
-std::vector<std::string> search_for(std::string query, int letters) {
-  int current_suggestion;
+std::vector<std::string> search_for(std::string query, unsigned int letters) {
+  unsigned int current_suggestion;
   std::vector<std::string> suggestions;
   suggestions = googet(query.substr(0, letters));
   for (current_suggestion = 0; current_suggestion < suggestions.size();
@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
     query << std::endl << std::endl;
     std::vector<std::string> sub_query_result;
     /* loop around each letter */
-    for (int letters = 1; letters <= query.length(); letters++) {
+    for (unsigned int letters = 1; letters <= query.length(); letters++) {
       search_for(query, letters);
     }
     return (0);

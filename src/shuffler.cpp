@@ -30,7 +30,7 @@ std::vector<std::string> googet(std::string sub_query);
 int rand_int(int i) { return std::rand()%i;}
 
 std::vector<std::string> search_for(std::string query, int letters) {
-  int current_suggestion;
+  unsigned int current_suggestion;
   std::vector<std::string> suggestions;
   suggestions.clear();
   suggestions = googet(query.substr(0, letters));
@@ -69,7 +69,7 @@ int main ( int argc, char *argv[]) {
     query << std::endl << std::endl;
     std::vector<std::string> sub_query_result;
     /* loop around each letter */
-    for (int letters = 1; letters <= query.length(); letters++) {
+    for (unsigned int letters = 1; letters <= query.length(); letters++) {
       search_for(query, letters);
     }
 

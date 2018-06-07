@@ -92,7 +92,7 @@ std::vector<std::string> googet(std::string sub_query) {
       /*
        * loop around the vector for each suggestion out of google
        */
-      for (int cur_sugg = 0; cur_sugg < suggestions.size(); cur_sugg++) {
+      for (unsigned int cur_sugg = 0; cur_sugg < suggestions.size(); cur_sugg++) {
         if (suggestions[cur_sugg].find(",[") == std::string::npos) {
 //           std::cerr << suggestions[cur_sugg] << std::endl << std::endl;
           google_suggestions.push_back(suggestions[cur_sugg]);

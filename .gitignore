@@ -24,4 +24,6 @@ config.status
 aclocal.m4
 configure
 googet
-suffler
+shuffler
+*.swp
+src/*.swp
