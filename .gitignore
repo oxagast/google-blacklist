@@ -22,3 +22,6 @@ Makefile.in
 config.log
 config.status
 aclocal.m4
+configure
+googet
+suffler

@@ -23,6 +23,7 @@
 #include <ctime>
 #include <stdexcept>
 #include <iterator>
+#include <random>
 
 std::vector<std::string> googet(std::string sub_query);
 
